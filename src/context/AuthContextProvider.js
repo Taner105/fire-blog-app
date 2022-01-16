@@ -51,7 +51,7 @@ const AuthContextProvider = ({ children }) => {
   }
 
   const values = {
-    currentUser,
+    
     signup,
     login,
     logout,
@@ -59,9 +59,11 @@ const AuthContextProvider = ({ children }) => {
     updatePassword,
     updateEmail,
     loginWithGoogle,
+    currentUser,
+    
   };
   return (
-    <AuthContext.Provider value={{values}}>
+    <AuthContext.Provider value={values}>
       {!loading && children}
     </AuthContext.Provider>
   );
