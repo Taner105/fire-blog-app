@@ -48,8 +48,11 @@ export default function Navbar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
- let  {currentUser}  = useAuth();
+  let  {currentUser, logout}  = useAuth();
+//  currentUser = {
+//     email: "a@gmailcom",
+//   };
+ 
   console.log(currentUser);
 
 
@@ -61,6 +64,11 @@ export default function Navbar() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setAnchorEl(null);
+    logout()
   };
 
   return (
@@ -107,7 +115,7 @@ export default function Navbar() {
                 <MenuItem onClick={handleClose}>New</MenuItem>
               </Link>
                <Link to="/login" className = {classes.linkStyle}>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Link>
               </Menu>):(
               <Menu

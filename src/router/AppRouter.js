@@ -21,10 +21,22 @@ const AppRouter = () => {
                 <Route path="/register" element={<Register /> } />
                 <Route path="/" exact element={<Dashboard /> } />
                 
-                <PrivateRouter path="/profile" element={<Profile /> } />
-                <PrivateRouter path="/new-blog" element={<NewBlog /> } />
-                <PrivateRouter path="/update-blog" element={<UpdateBlog /> } />
-                <PrivateRouter path="/detail" element={<Detail /> } />
+                <Route path="/profile" element={
+                <PrivateRouter>
+                <Profile /> 
+                </PrivateRouter>} />
+                <Route path="/new-blog" element={
+                <PrivateRouter>
+                <NewBlog />
+                </PrivateRouter> } />
+                <Route path="/update-blog" element={
+                <PrivateRouter>
+                <UpdateBlog />
+                </PrivateRouter> } />
+                <Route path="/detail" element={
+                <PrivateRouter>
+                <Detail />
+                </PrivateRouter> } />
             </Routes>
         </Router>
     )
