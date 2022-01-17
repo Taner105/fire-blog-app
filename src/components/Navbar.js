@@ -10,7 +10,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import cwLogo from "../assets/cw.jpeg"
 import { useAuth } from "../context/AuthContextProvider";
-import { Link, useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -26,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     display:"none",
     fontFamily:"Girassol",
+    cursor:"pointer",
     [theme.breakpoints.up("sm")] : {
         display:"block",
     },
@@ -44,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navbar() {
-    
+
+  const navigate = useNavigate()
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -76,10 +79,16 @@ export default function Navbar() {
      
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton 
+          edge="start" 
+          className={classes.menuButton} 
+          color="inherit" 
+          aria-label="menu"
+          onClick={() => navigate("/")}
+          >
            <img src={cwLogo} alt="logo"  className={classes.logo}/>
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.title} onClick={() => navigate("/")}>
             ──── <span>{"<TnR />"}</span> BLOG ────
           </Typography>
           

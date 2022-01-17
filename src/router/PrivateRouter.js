@@ -10,7 +10,7 @@ const PrivateRouter = ({children}) => {
 //   currentUser = {
 //     email: "a@gmailcom",
 //   };
-
+  
   return currentUser ? 
     children
    : 
