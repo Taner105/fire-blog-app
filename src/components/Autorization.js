@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -93,9 +93,104 @@ const ValidationSchema = yup.object().shape({
 });
 
 
-const Autorization = () => {
+const LoginAndRegisterForm = (props) => {
+  console.log(props);
+  const { handleChange, handleBlur, errors, isSubmitting, values, touched} = props;
+
+  const classes = useStyles();
+  const {loginWithGoogle} = useAuth();
+  const handleGoogleProvider = () => {
+  loginWithGoogle();
+}
+return(
+  <Grid container className={classes.root}>
+      <Grid container justifyContent="center" className={classes.image}>
+        <Grid item component={Paper} elevation={6} square xs={12} sm={8} md={6}>
+          <Grid className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <img src={blokPng} style={{ width: 200 }} alt="candela" />
+            </Avatar>
+            <Typography className={classes.header} component="h1" variant="h5">
+              ── {props.method} ──
+            </Typography>
+            <Form className={classes.form}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+                autoComplete="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                autoFocus
+                value={values.email}
+                error={touched.email && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.password && Boolean(errors.password)}
+                helperText={touched.password && errors.password}
+              />
+              {isSubmitting ? (
+                <div className={classes.loadingContainer}>
+                  <img
+                    src={loadingGif}
+                    alt="Loading"
+                    className={classes.loadingGif}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    className={classes.submit}
+                  >
+                    {props.method}
+                  </Button>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    onClick={handleGoogleProvider}
+                    className={classes.googleBtn}
+                  >
+                    With
+                    <img
+                      src={googlePng}
+                      alt="google"
+                      className={classes.googleImg}
+                    />
+                  </Button>
+                </div>
+              )}
+            </Form>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+
+);
+};
+
+
+const Autorization = (props) => {
     const navigate = useNavigate();
-    const {signub, login, currentUser} = useAuth();
+    const {signup, login, currentUser} = useAuth();
+    const [method] = useState(props.method)
 
     useEffect(() => {
         if(currentUser) {
@@ -111,8 +206,33 @@ const Autorization = () => {
 
             }}
             validationSchema={ValidationSchema}
-            onSubmit={(values, actions) => {}}
-            // component ={LoginAndRegisterForm}
+            onSubmit={(values, actions) => {
+              if(method === "Login"){
+                login(values.email, values.password)
+                .then(() => {
+                  toastSuccessNotify(`${method} Successfully performed!`);
+                  navigate("/");
+                  actions.setSubmitting(false);
+                }).catch((error) => {
+                  toastErrorNotify(error.message);
+                  actions.setSubmitting(false);
+                  actions.resetForm();
+
+                });
+              }else {
+                 signup(values.email, values.password).then(() => {
+                  toastSuccessNotify(`${method} Successfully performed!`);
+                  navigate("/");
+                  actions.setSubmitting(false);
+                }).catch((error) => {
+                  toastErrorNotify(error.message);
+                  actions.setSubmitting(false);
+                  actions.resetForm();
+
+                });
+              }
+            }}
+            component ={(props) => <LoginAndRegisterForm method={method} {...props} />}
             >
 
         </Formik>
