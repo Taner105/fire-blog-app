@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContextProvider";
 
 const PrivateRouter = ({children}) => {
   
-  let  {currentUser}  = useAuth();
+  let  { currentUser }  = useAuth();
 
 //   !Just for testing purpose
 //   currentUser = {

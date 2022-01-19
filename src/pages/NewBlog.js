@@ -34,46 +34,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewBlog = () => {
-    const classes = useStyles()
-    const { currentUser } = useAuth();
-    const { addBlog } = useBlog();
-    const navigate = useNavigate();
+  const classes = useStyles();
+  const { currentUser } = useAuth();
+  const { addBlog } = useBlog();
+  const navigate = useNavigate();
 
-    const handler = (newBlog) => {
-        try{
-            addBlog(newBlog);
-            navigate("/")
-            toastSuccessNotify("Blog added");
-
-        }catch(error){
-            toastErrorNotify("Blog can not be added");
-        }
-       
+  const handler = (newBlog) => {
+    try {
+      addBlog(newBlog);
+      navigate("/");
+      toastSuccessNotify("Blog added");
+    } catch (error) {
+      toastErrorNotify("Blog can not be added");
     }
+  };
 
-     const blog = {
-        author: currentUser.email,
-        title: "",
-        content: "",
-        get_comment_count: 0,
-        get_like_count: 0,
-        image: "",
-        published_date: Date.now(),
-    };
-    return (
-        <Container maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                <img src={blogPng} alt="blog" className={classes.blogImg} />
-                </Avatar>
-                <Typography component="h1" variant="h5" className={classes.title}>
-                ── New Blog ──
-                </Typography>
-            </div>
-            <BlogForm blog={blog} handler={handler} />
-        </Container>
-    )
-}
+  const blog = {
+    author: currentUser.email,
+    title: "",
+    content: "",
+    get_comment_count: 0,
+    get_like_count: 0,
+    image: "",
+    published_date: Date.now(),
+  };
 
-export default NewBlog
+  return (
+    <Container maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <img src={blogPng} alt="blog" className={classes.blogImg} />
+        </Avatar>
+        <Typography component="h1" variant="h5" className={classes.title}>
+          ── New Blog ──
+        </Typography>
+      </div>
+      <BlogForm blog={blog} handler={handler} />
+    </Container>
+  );
+};
+
+export default NewBlog;

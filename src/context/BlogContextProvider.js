@@ -54,5 +54,4 @@ export function BlogContextProvider({ children }) {
     updateBlog,
   };
 
-  return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;
-}
+  return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;}

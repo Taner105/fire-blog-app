@@ -56,7 +56,7 @@ export default function Navbar() {
 //     email: "a@gmailcom",
 //   };
  
-  console.log(currentUser);
+  // console.log(currentUser);
 
 
  
